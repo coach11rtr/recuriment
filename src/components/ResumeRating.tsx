@@ -79,7 +79,12 @@ const ResumeRating: React.FC<ResumeRatingProps> = ({ onBack }) => {
       
     } catch (error) {
       console.error('Error analyzing resume:', error);
-      alert('Failed to analyze resume. Please try again.');
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes('503') && errorMessage.includes('overloaded')) {
+        alert('The AI service is currently busy. Please try again in a few moments.');
+      } else {
+        alert('Failed to analyze resume. Please try again.');
+      }
     } finally {
       setIsAnalyzing(false);
     }
