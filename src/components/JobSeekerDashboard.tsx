@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AIResumeBuilder from './AIResumeBuilder';
 import ResumeRating from './ResumeRating';
+import AIChatbot from './AIChatbot';
 import { 
   User, 
   FileText, 
@@ -16,7 +17,8 @@ import {
   Star,
   Send,
   Sparkles,
-  TrendingUp
+  TrendingUp,
+  MessageCircle
 } from 'lucide-react';
 
 interface JobSeekerDashboardProps {
@@ -64,6 +66,7 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack }) => {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [showAIBuilder, setShowAIBuilder] = useState(false);
   const [showResumeRating, setShowResumeRating] = useState(false);
+  const [showChatbot, setShowChatbot] = useState(false);
   const [savedResume, setSavedResume] = useState<ResumeData | null>(null);
 
   const mockJobs: Job[] = [
@@ -110,6 +113,14 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack }) => {
     setShowAIBuilder(false);
   };
 
+  // Mock user profile data
+  const userProfile = {
+    name: 'John Doe',
+    email: 'john@example.com',
+    phone: '+1 (555) 123-4567',
+    location: 'San Francisco, CA',
+    bio: 'Passionate frontend developer with 5+ years of experience building responsive web applications...'
+  };
   const renderSidebar = () => (
     <div className="w-64 bg-white shadow-lg h-full">
       <div className="p-6 border-b">
@@ -160,6 +171,15 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack }) => {
           >
             <Send className="w-5 h-5" />
             <span>Applications</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('chatbot')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+              activeTab === 'chatbot' ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:bg-gray-100'
+            }`}
+          >
+            <MessageCircle className="w-5 h-5" />
+            <span>AI Assistant</span>
           </button>
         </div>
       </nav>
@@ -570,6 +590,14 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack }) => {
         <div className="flex-1">
           <ResumeRating onBack={() => setShowResumeRating(false)} />
         </div>
+      ) : showChatbot ? (
+        <div className="flex-1">
+          <AIChatbot 
+            onBack={() => setShowChatbot(false)}
+            userProfile={userProfile}
+            resumeData={savedResume}
+          />
+        </div>
       ) : (
         <>
           {renderSidebar()}
@@ -577,6 +605,15 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack }) => {
           {activeTab === 'profile' && renderProfile()}
           {activeTab === 'resume' && renderResume()}
           {activeTab === 'applications' && renderApplications()}
+          {activeTab === 'chatbot' && (
+            <div className="flex-1">
+              <AIChatbot 
+                onBack={() => setActiveTab('jobs')}
+                userProfile={userProfile}
+                resumeData={savedResume}
+              />
+            </div>
+          )}
         </>
       )}
     </div>
