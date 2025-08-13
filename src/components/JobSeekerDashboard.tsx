@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AIResumeBuilder from './AIResumeBuilder';
+import ResumeRating from './ResumeRating';
 import { 
   User, 
   FileText, 
@@ -14,7 +15,8 @@ import {
   ChevronLeft,
   Star,
   Send,
-  Sparkles
+  Sparkles,
+  TrendingUp
 } from 'lucide-react';
 
 interface JobSeekerDashboardProps {
@@ -61,6 +63,7 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [showAIBuilder, setShowAIBuilder] = useState(false);
+  const [showResumeRating, setShowResumeRating] = useState(false);
   const [savedResume, setSavedResume] = useState<ResumeData | null>(null);
 
   const mockJobs: Job[] = [
@@ -167,7 +170,16 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack }) => {
     <div className="flex-1 p-6">
       {/* Search Header */}
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Find Your Next Opportunity</h1>
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-3xl font-bold text-gray-800">Find Your Next Opportunity</h1>
+          <button
+            onClick={() => setShowResumeRating(true)}
+            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+          >
+            <TrendingUp className="w-5 h-5" />
+            <span>Rate My Resume</span>
+          </button>
+        </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
@@ -554,11 +566,19 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack }) => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {renderSidebar()}
-      {activeTab === 'jobs' && renderJobSearch()}
-      {activeTab === 'profile' && renderProfile()}
-      {activeTab === 'resume' && renderResume()}
-      {activeTab === 'applications' && renderApplications()}
+      {showResumeRating ? (
+        <div className="flex-1">
+          <ResumeRating onBack={() => setShowResumeRating(false)} />
+        </div>
+      ) : (
+        <>
+          {renderSidebar()}
+          {activeTab === 'jobs' && renderJobSearch()}
+          {activeTab === 'profile' && renderProfile()}
+          {activeTab === 'resume' && renderResume()}
+          {activeTab === 'applications' && renderApplications()}
+        </>
+      )}
     </div>
   );
 };
