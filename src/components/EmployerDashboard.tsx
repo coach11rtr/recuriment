@@ -18,6 +18,7 @@ import {
 
 interface EmployerDashboardProps {
   onBack: () => void;
+  onAddJob: (job: Omit<Job, 'id' | 'posted'>) => void;
 }
 
 interface JobPosting {
@@ -33,7 +34,20 @@ interface JobPosting {
   status: 'active' | 'draft' | 'closed';
 }
 
-const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack }) => {
+interface Job {
+  id: string;
+  title: string;
+  company: string;
+  location: string;
+  type: string;
+  salary: string;
+  posted: string;
+  description: string;
+  requirements: string[];
+  tags: string[];
+}
+
+const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob }) => {
   const [activeTab, setActiveTab] = useState('post-job');
   const [isGenerating, setIsGenerating] = useState(false);
   const [jobForm, setJobForm] = useState({
@@ -118,6 +132,25 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack }) => {
       alert('Please fill in all required fields.');
       return;
     }
+
+    // Add job to global state for job seekers to see
+    const jobForJobSeekers: Omit<Job, 'id' | 'posted'> = {
+      title: jobForm.title,
+      company: jobForm.company,
+      location: jobForm.location,
+      type: jobForm.type,
+      salary: jobForm.salary,
+      description: jobForm.description,
+      requirements: jobForm.requirements.split(',').map(req => req.trim()).filter(req => req),
+      tags: [
+        jobForm.type,
+        jobForm.location.includes('Remote') ? 'Remote' : 'On-site',
+        jobForm.salary.includes('$') ? 'Competitive Salary' : 'Salary Negotiable'
+      ].filter(tag => tag)
+    };
+    
+    // Add to global jobs state
+    onAddJob(jobForJobSeekers);
 
     const newJob: JobPosting = {
       id: Date.now().toString(),

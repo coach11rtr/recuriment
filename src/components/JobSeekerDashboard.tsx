@@ -23,6 +23,7 @@ import {
 
 interface JobSeekerDashboardProps {
   onBack: () => void;
+  jobs: Job[];
 }
 
 interface Job {
@@ -60,7 +61,7 @@ interface ResumeData {
   skills: string[];
 }
 
-const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack }) => {
+const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs }) => {
   const [activeTab, setActiveTab] = useState('jobs');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
@@ -68,45 +69,6 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack }) => {
   const [showResumeRating, setShowResumeRating] = useState(false);
   const [showChatbot, setShowChatbot] = useState(false);
   const [savedResume, setSavedResume] = useState<ResumeData | null>(null);
-
-  const mockJobs: Job[] = [
-    {
-      id: '1',
-      title: 'Senior Frontend Developer',
-      company: 'TechCorp',
-      location: 'San Francisco, CA',
-      type: 'Full-time',
-      salary: '$120k - $160k',
-      posted: '2 days ago',
-      description: 'We are looking for a talented Senior Frontend Developer to join our dynamic team. You will be responsible for building and maintaining high-quality web applications using modern technologies.',
-      requirements: ['React', 'TypeScript', 'Node.js', '5+ years experience'],
-      tags: ['Remote', 'Tech', 'Senior Level']
-    },
-    {
-      id: '2',
-      title: 'UX/UI Designer',
-      company: 'DesignStudio',
-      location: 'New York, NY',
-      type: 'Full-time',
-      salary: '$80k - $110k',
-      posted: '1 week ago',
-      description: 'Join our creative team as a UX/UI Designer. Create intuitive and visually appealing user interfaces for web and mobile applications.',
-      requirements: ['Figma', 'Adobe Creative Suite', 'User Research', '3+ years experience'],
-      tags: ['Design', 'Creative', 'Hybrid']
-    },
-    {
-      id: '3',
-      title: 'Data Scientist',
-      company: 'DataInsights',
-      location: 'Austin, TX',
-      type: 'Contract',
-      salary: '$90k - $130k',
-      posted: '3 days ago',
-      description: 'Analyze complex datasets to derive actionable insights. Work with machine learning models and statistical analysis.',
-      requirements: ['Python', 'SQL', 'Machine Learning', 'Statistics'],
-      tags: ['Data', 'Analytics', 'Remote']
-    }
-  ];
 
   const handleSaveResume = (resumeData: ResumeData) => {
     setSavedResume(resumeData);
@@ -221,7 +183,7 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack }) => {
       {/* Job Listings */}
       <div className="grid lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          {mockJobs.map((job) => (
+          {jobs.map((job) => (
             <div
               key={job.id}
               onClick={() => setSelectedJob(job)}
