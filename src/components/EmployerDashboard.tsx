@@ -13,7 +13,9 @@ import {
   Users,
   Briefcase,
   CheckCircle,
-  Plus
+  Plus,
+  Menu,
+  X
 } from 'lucide-react';
 
 interface EmployerDashboardProps {
@@ -50,6 +52,7 @@ interface Job {
 const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob }) => {
   const [activeTab, setActiveTab] = useState('post-job');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [jobForm, setJobForm] = useState({
     title: '',
     company: '',
@@ -180,18 +183,18 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
   };
 
   const renderPostJob = () => (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto px-4 lg:px-0">
       <div className="mb-8">
         <div className="text-center">
-          <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Plus className="w-8 h-8 text-white" />
+          <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <Plus className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Post a New Job</h1>
-          <p className="text-gray-600">Create an attractive job posting to find the perfect candidate</p>
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-2">Post a New Job</h1>
+          <p className="text-sm lg:text-base text-gray-600">Create an attractive job posting to find the perfect candidate</p>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 lg:p-8">
         <div className="space-y-6">
           {/* Basic Information */}
           <div className="grid md:grid-cols-2 gap-6">
@@ -287,23 +290,25 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
               <button
                 onClick={generateJobDescription}
                 disabled={isGenerating || !jobForm.title || !jobForm.company}
-                className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-700 hover:to-pink-700 transition-all flex items-center space-x-2 text-sm"
+                className="px-3 py-2 lg:px-4 lg:py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-700 hover:to-pink-700 transition-all flex items-center space-x-2 text-xs lg:text-sm"
               >
                 {isGenerating ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>Generating...</span>
+                    <span className="hidden sm:inline">Generating...</span>
+                    <span className="sm:hidden">Gen...</span>
                   </>
                 ) : (
                   <>
                     <Sparkles className="w-4 h-4" />
-                    <span>AI Generate</span>
+                    <span className="hidden sm:inline">AI Generate</span>
+                    <span className="sm:hidden">AI</span>
                   </>
                 )}
               </button>
             </div>
             <textarea
-              rows={8}
+              rows={6}
               value={jobForm.description}
               onChange={(e) => handleInputChange('description', e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
@@ -318,24 +323,25 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
           <div className="flex justify-between items-center pt-6 border-t border-gray-200">
             <button
               onClick={onBack}
-              className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-4 py-2 lg:px-6 lg:py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm lg:text-base"
             >
               Back to Home
             </button>
-            <div className="flex space-x-4">
+            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
               <button
                 onClick={() => {
                   // Save as draft functionality
                   alert('Job saved as draft!');
                 }}
-                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center space-x-2"
+                className="px-4 py-2 lg:px-6 lg:py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center space-x-2 text-sm lg:text-base"
               >
                 <Save className="w-5 h-5" />
-                <span>Save Draft</span>
+                <span className="hidden sm:inline">Save Draft</span>
+                <span className="sm:hidden">Save</span>
               </button>
               <button
                 onClick={handlePostJob}
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all flex items-center space-x-2"
+                className="px-4 py-2 lg:px-6 lg:py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all flex items-center justify-center space-x-2 text-sm lg:text-base"
               >
                 <Briefcase className="w-5 h-5" />
                 <span>Post Job</span>
@@ -348,30 +354,31 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
   );
 
   const renderManageJobs = () => (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto px-4 lg:px-0">
       <div className="mb-8">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
           <div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">Manage Job Postings</h1>
-            <p className="text-gray-600">View and manage your active job listings</p>
+            <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-2">Manage Job Postings</h1>
+            <p className="text-sm lg:text-base text-gray-600">View and manage your active job listings</p>
           </div>
           <button
             onClick={() => setActiveTab('post-job')}
-            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all flex items-center space-x-2"
+            className="px-4 py-2 lg:px-6 lg:py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all flex items-center space-x-2 text-sm lg:text-base"
           >
             <Plus className="w-5 h-5" />
-            <span>Post New Job</span>
+            <span className="hidden sm:inline">Post New Job</span>
+            <span className="sm:hidden">Post Job</span>
           </button>
         </div>
       </div>
 
       <div className="grid gap-6">
         {postedJobs.map((job) => (
-          <div key={job.id} className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
+          <div key={job.id} className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 lg:p-6">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">{job.title}</h3>
-                <div className="flex items-center space-x-4 text-gray-600 mb-3">
+                <h3 className="text-xl lg:text-2xl font-bold text-gray-800 mb-2 pr-2">{job.title}</h3>
+                <div className="flex flex-wrap items-center gap-2 lg:gap-4 text-sm lg:text-base text-gray-600 mb-3">
                   <div className="flex items-center space-x-1">
                     <Building2 className="w-4 h-4" />
                     <span>{job.company}</span>
@@ -385,7 +392,7 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
                     <span>{job.salary}</span>
                   </div>
                 </div>
-                <div className="flex items-center space-x-4">
+                <div className="flex flex-wrap items-center gap-2 lg:gap-4">
                   <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                     job.status === 'active' ? 'bg-green-100 text-green-800' :
                     job.status === 'draft' ? 'bg-yellow-100 text-yellow-800' :
@@ -396,7 +403,7 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
                   <span className="text-sm text-gray-500">Posted {job.posted}</span>
                 </div>
               </div>
-              <div className="flex space-x-2">
+              <div className="flex space-x-1 lg:space-x-2">
                 <button className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
                   <Eye className="w-5 h-5" />
                 </button>
@@ -407,7 +414,7 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
             </div>
 
             <div className="mb-4">
-              <p className="text-gray-700 line-clamp-3">{job.description}</p>
+              <p className="text-sm lg:text-base text-gray-700 line-clamp-3">{job.description}</p>
             </div>
 
             <div className="flex flex-wrap gap-2 mb-4">
@@ -419,7 +426,7 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
             </div>
 
             <div className="flex justify-between items-center pt-4 border-t border-gray-200">
-              <div className="flex items-center space-x-4 text-sm text-gray-600">
+              <div className="flex flex-wrap items-center gap-2 lg:gap-4 text-xs lg:text-sm text-gray-600">
                 <div className="flex items-center space-x-1">
                   <Users className="w-4 h-4" />
                   <span>24 Applications</span>
@@ -429,12 +436,13 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
                   <span>156 Views</span>
                 </div>
               </div>
-              <div className="flex space-x-2">
+              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                 <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
                   Edit
                 </button>
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                  View Applications
+                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm lg:text-base">
+                  <span className="hidden sm:inline">View Applications</span>
+                  <span className="sm:hidden">Applications</span>
                 </button>
               </div>
             </div>
@@ -445,25 +453,38 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 relative">
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4">
           <div className="flex items-center justify-between">
+            {/* Mobile Menu Button */}
+            <div className="lg:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(true)}
+                className="p-2 text-gray-600 hover:text-blue-600 transition-colors"
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+            </div>
+            
             <button
               onClick={onBack}
-              className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors"
+              className="hidden lg:flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
               <span>Back to Home</span>
             </button>
+            
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-                <Building2 className="w-5 h-5 text-white" />
+              <div className="w-6 h-6 lg:w-8 lg:h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
+                <Building2 className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-gray-800">Employer Dashboard</span>
+              <span className="text-lg lg:text-xl font-bold text-gray-800">Employer Dashboard</span>
             </div>
-            <div className="flex items-center space-x-4">
+            
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-4">
               <button
                 onClick={() => setActiveTab('post-job')}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${
@@ -486,11 +507,69 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
               </button>
             </div>
           </div>
+          
+          {/* Mobile Navigation Overlay */}
+          {isMobileMenuOpen && (
+            <>
+              <div 
+                className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+                onClick={() => setIsMobileMenuOpen(false)}
+              />
+              <div className="fixed top-0 left-0 right-0 bg-white z-50 p-4 shadow-lg lg:hidden">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-gray-800">Navigation</h3>
+                  <button
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="p-2 text-gray-600 hover:text-blue-600 transition-colors"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+                <div className="space-y-2">
+                  <button
+                    onClick={onBack}
+                    className="w-full flex items-center space-x-2 px-4 py-3 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                  >
+                    <ArrowLeft className="w-5 h-5" />
+                    <span>Back to Home</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('post-job');
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`w-full flex items-center space-x-2 px-4 py-3 rounded-lg transition-colors ${
+                      activeTab === 'post-job' 
+                        ? 'bg-blue-100 text-blue-600' 
+                        : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                    }`}
+                  >
+                    <Plus className="w-5 h-5" />
+                    <span>Post Job</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('manage-jobs');
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`w-full flex items-center space-x-2 px-4 py-3 rounded-lg transition-colors ${
+                      activeTab === 'manage-jobs' 
+                        ? 'bg-blue-100 text-blue-600' 
+                        : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                    }`}
+                  >
+                    <Briefcase className="w-5 h-5" />
+                    <span>Manage Jobs</span>
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-8">
+      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-6 lg:py-8">
         {activeTab === 'post-job' && renderPostJob()}
         {activeTab === 'manage-jobs' && renderManageJobs()}
       </main>

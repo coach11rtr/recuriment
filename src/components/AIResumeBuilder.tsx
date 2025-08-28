@@ -388,7 +388,7 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
   const isStep2Valid = formData.experience && formData.education && formData.skills;
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto px-4 lg:px-0">
       {/* Progress Bar */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
@@ -404,26 +404,26 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
       </div>
 
       {/* Content */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 lg:p-8">
         {currentStep === 1 && renderStep1()}
         {currentStep === 2 && renderStep2()}
         {currentStep === 3 && renderStep3()}
 
         {/* Navigation */}
-        <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
+        <div className="flex flex-col sm:flex-row justify-between items-center mt-8 pt-6 border-t border-gray-200 space-y-4 sm:space-y-0">
           <button
             onClick={currentStep === 1 ? onBack : () => setCurrentStep(currentStep - 1)}
-            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+            className="w-full sm:w-auto px-4 py-2 lg:px-6 lg:py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm lg:text-base"
           >
             {currentStep === 1 ? 'Back to Resume' : 'Previous'}
           </button>
 
-          <div className="flex space-x-4">
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
             {currentStep === 1 && (
               <button
                 onClick={() => setCurrentStep(2)}
                 disabled={!isStep1Valid}
-                className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-700 hover:to-blue-700 transition-all"
+                className="w-full sm:w-auto px-4 py-2 lg:px-6 lg:py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-700 hover:to-blue-700 transition-all text-sm lg:text-base"
               >
                 Next Step
               </button>
@@ -433,7 +433,7 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
               <button
                 onClick={generateResume}
                 disabled={!isStep2Valid || isGenerating}
-                className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-700 hover:to-blue-700 transition-all flex items-center space-x-2"
+                className="w-full sm:w-auto px-4 py-2 lg:px-6 lg:py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-700 hover:to-blue-700 transition-all flex items-center justify-center space-x-2 text-sm lg:text-base"
               >
                 {isGenerating ? (
                   <>
@@ -450,17 +450,17 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
             )}
 
             {currentStep === 3 && generatedResume && (
-              <div className="flex space-x-4">
+              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
                 <button
                   onClick={() => onSave(generatedResume)}
-                  className="px-6 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all flex items-center space-x-2"
+                  className="w-full sm:w-auto px-4 py-2 lg:px-6 lg:py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all flex items-center justify-center space-x-2 text-sm lg:text-base"
                 >
                   <Save className="w-5 h-5" />
                   <span>Save Resume</span>
                 </button>
                 <button
                   onClick={downloadPDF}
-                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all flex items-center space-x-2"
+                  className="w-full sm:w-auto px-4 py-2 lg:px-6 lg:py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all flex items-center justify-center space-x-2 text-sm lg:text-base"
                 >
                   <Download className="w-5 h-5" />
                   <span>Download PDF</span>

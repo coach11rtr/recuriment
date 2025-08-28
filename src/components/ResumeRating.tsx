@@ -121,7 +121,7 @@ const ResumeRating: React.FC<ResumeRatingProps> = ({ onBack }) => {
   const isFormValid = formData.jobTitle && formData.jobDescription && formData.resumeText;
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-4 lg:p-6">
       <div className="mb-8">
         <button
           onClick={onBack}
@@ -131,16 +131,16 @@ const ResumeRating: React.FC<ResumeRatingProps> = ({ onBack }) => {
           <span>Back to Jobs</span>
         </button>
         <div className="text-center">
-          <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <TrendingUp className="w-8 h-8 text-white" />
+          <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <TrendingUp className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">AI Resume Rating</h1>
-          <p className="text-gray-600">Get personalized feedback on how well your resume matches specific job requirements</p>
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-2">AI Resume Rating</h1>
+          <p className="text-sm lg:text-base text-gray-600 px-4">Get personalized feedback on how well your resume matches specific job requirements</p>
         </div>
       </div>
 
       {!ratingResult ? (
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 lg:p-8">
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -160,7 +160,7 @@ const ResumeRating: React.FC<ResumeRatingProps> = ({ onBack }) => {
                 Job Description *
               </label>
               <textarea
-                rows={6}
+                rows={4}
                 value={formData.jobDescription}
                 onChange={(e) => handleInputChange('jobDescription', e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
@@ -173,7 +173,7 @@ const ResumeRating: React.FC<ResumeRatingProps> = ({ onBack }) => {
                 Your Resume Content *
               </label>
               <textarea
-                rows={8}
+                rows={6}
                 value={formData.resumeText}
                 onChange={(e) => handleInputChange('resumeText', e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
@@ -185,7 +185,7 @@ const ResumeRating: React.FC<ResumeRatingProps> = ({ onBack }) => {
               <button
                 onClick={analyzeResume}
                 disabled={!isFormValid || isAnalyzing}
-                className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-700 hover:to-blue-700 transition-all flex items-center space-x-2"
+                className="px-6 lg:px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-700 hover:to-blue-700 transition-all flex items-center space-x-2 text-sm lg:text-base"
               >
                 {isAnalyzing ? (
                   <>
@@ -205,12 +205,12 @@ const ResumeRating: React.FC<ResumeRatingProps> = ({ onBack }) => {
       ) : (
         <div className="space-y-6">
           {/* Overall Score */}
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 lg:p-8">
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">Resume Analysis Results</h2>
-              <div className={`inline-flex items-center space-x-4 px-6 py-4 rounded-2xl ${getScoreBgColor(ratingResult.overallScore)}`}>
+              <h2 className="text-xl lg:text-2xl font-bold text-gray-800 mb-4">Resume Analysis Results</h2>
+              <div className={`inline-flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 px-4 lg:px-6 py-4 rounded-2xl ${getScoreBgColor(ratingResult.overallScore)}`}>
                 <div className="text-center">
-                  <div className={`text-4xl font-bold ${getScoreColor(ratingResult.overallScore)}`}>
+                  <div className={`text-3xl lg:text-4xl font-bold ${getScoreColor(ratingResult.overallScore)}`}>
                     {ratingResult.overallScore}
                   </div>
                   <div className="text-sm text-gray-600">Overall Score</div>
@@ -220,7 +220,7 @@ const ResumeRating: React.FC<ResumeRatingProps> = ({ onBack }) => {
                   <div className="text-sm text-gray-600 mt-1">Rating</div>
                 </div>
                 <div className="text-center">
-                  <div className={`text-2xl font-bold ${getScoreColor(ratingResult.matchPercentage)}`}>
+                  <div className={`text-xl lg:text-2xl font-bold ${getScoreColor(ratingResult.matchPercentage)}`}>
                     {ratingResult.matchPercentage}%
                   </div>
                   <div className="text-sm text-gray-600">Job Match</div>
@@ -230,8 +230,8 @@ const ResumeRating: React.FC<ResumeRatingProps> = ({ onBack }) => {
           </div>
 
           {/* Strengths */}
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
-            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 lg:p-8">
+            <h3 className="text-lg lg:text-xl font-bold text-gray-800 mb-4 flex items-center">
               <CheckCircle className="w-6 h-6 text-green-600 mr-2" />
               Strengths
             </h3>
@@ -239,19 +239,19 @@ const ResumeRating: React.FC<ResumeRatingProps> = ({ onBack }) => {
               {ratingResult.strengths.map((strength, index) => (
                 <div key={index} className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700">{strength}</p>
+                  <p className="text-sm lg:text-base text-gray-700">{strength}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Skills Match */}
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
-            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 lg:p-8">
+            <h3 className="text-lg lg:text-xl font-bold text-gray-800 mb-4 flex items-center">
               <Target className="w-6 h-6 text-blue-600 mr-2" />
               Skills Analysis
             </h3>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-4 lg:gap-6">
               <div>
                 <h4 className="font-semibold text-green-700 mb-3">Matching Skills</h4>
                 <div className="flex flex-wrap gap-2">
@@ -276,8 +276,8 @@ const ResumeRating: React.FC<ResumeRatingProps> = ({ onBack }) => {
           </div>
 
           {/* Areas for Improvement */}
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
-            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 lg:p-8">
+            <h3 className="text-lg lg:text-xl font-bold text-gray-800 mb-4 flex items-center">
               <AlertCircle className="w-6 h-6 text-yellow-600 mr-2" />
               Areas for Improvement
             </h3>
@@ -285,15 +285,15 @@ const ResumeRating: React.FC<ResumeRatingProps> = ({ onBack }) => {
               {ratingResult.weaknesses.map((weakness, index) => (
                 <div key={index} className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-yellow-600 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700">{weakness}</p>
+                  <p className="text-sm lg:text-base text-gray-700">{weakness}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Suggestions */}
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
-            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 lg:p-8">
+            <h3 className="text-lg lg:text-xl font-bold text-gray-800 mb-4 flex items-center">
               <TrendingUp className="w-6 h-6 text-purple-600 mr-2" />
               Improvement Suggestions
             </h3>
@@ -301,26 +301,26 @@ const ResumeRating: React.FC<ResumeRatingProps> = ({ onBack }) => {
               {ratingResult.suggestions.map((suggestion, index) => (
                 <div key={index} className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700">{suggestion}</p>
+                  <p className="text-sm lg:text-base text-gray-700">{suggestion}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex justify-center space-x-4">
+          <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4">
             <button
               onClick={() => {
                 setRatingResult(null);
                 setFormData({ jobTitle: '', jobDescription: '', resumeText: '' });
               }}
-              className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-4 py-2 lg:px-6 lg:py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm lg:text-base"
             >
               Analyze Another Resume
             </button>
             <button
               onClick={onBack}
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+              className="px-4 py-2 lg:px-6 lg:py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all text-sm lg:text-base"
             >
               Back to Job Search
             </button>
