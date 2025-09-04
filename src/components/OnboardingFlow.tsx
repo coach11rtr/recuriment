@@ -56,14 +56,6 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ user, userType, onCompl
     }
   };
 
-  const handleAuthSuccess = () => {
-    // Handle OAuth callback and create profile
-    const urlParams = new URLSearchParams(window.location.search);
-    const userType = urlParams.get('user_type') as 'job_seeker' | 'employer' || 'job_seeker';
-    
-    checkAuth();
-  };
-
   const saveProfile = async () => {
     setIsLoading(true);
     try {
