@@ -20,7 +20,9 @@ import {
 
 interface EmployerDashboardProps {
   onBack: () => void;
+  onSignOut: () => void;
   onAddJob: (job: Omit<Job, 'id' | 'posted'>) => void;
+  user: any;
 }
 
 interface JobPosting {
@@ -49,7 +51,7 @@ interface Job {
   tags: string[];
 }
 
-const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob }) => {
+const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onSignOut, onAddJob, user }) => {
   const [activeTab, setActiveTab] = useState('post-job');
   const [isGenerating, setIsGenerating] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -63,19 +65,58 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
     type: 'Full-time'
   });
   const [postedJobs, setPostedJobs] = useState<JobPosting[]>([
-    {
-      id: '1',
-      title: 'Senior Frontend Developer',
-      company: 'TechCorp',
-      location: 'San Francisco, CA',
-      salary: '$120k - $160k',
-      requirements: ['React', 'TypeScript', 'Node.js', '5+ years experience'],
-      description: 'We are looking for a talented Senior Frontend Developer...',
-      type: 'Full-time',
-      posted: '2 days ago',
-      status: 'active'
-    }
+    // Jobs will be loaded from database
   ]);
+
+  useEffect(() => {
+    if (user) {
+      loadEmployerJobs();
+    }
+  }, [user]);
+
+  const loadEmployerJobs = async () => {
+    try {
+      const { data: jobsData, error } = await supabase
+        .from('jobs')
+        .select('*')
+        .eq('employer_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      const formattedJobs: JobPosting[] = jobsData.map(job => ({
+        id: job.id,
+        title: job.title,
+        company: job.company,
+        location: job.location,
+        salary: job.salary,
+        requirements: job.requirements,
+        description: job.description,
+        type: job.type,
+        posted: formatTimeAgo(job.created_at),
+        status: job.status as 'active' | 'draft' | 'closed'
+      }));
+
+      setPostedJobs(formattedJobs);
+    } catch (error) {
+      console.error('Error loading employer jobs:', error);
+    }
+  };
+
+  const formatTimeAgo = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
+    
+    if (diffInHours < 1) return 'Just now';
+    if (diffInHours < 24) return `${diffInHours} hours ago`;
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays === 1) return '1 day ago';
+    if (diffInDays < 7) return `${diffInDays} days ago`;
+    const diffInWeeks = Math.floor(diffInDays / 7);
+    if (diffInWeeks === 1) return '1 week ago';
+    return `${diffInWeeks} weeks ago`;
+  };
 
   const genAI = new GoogleGenerativeAI('AIzaSyB7Hbl5seOhDqFSgPZCvV4ymlFTdKM_5gw');
 
@@ -155,20 +196,8 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
     // Add to global jobs state
     onAddJob(jobForJobSeekers);
 
-    const newJob: JobPosting = {
-      id: Date.now().toString(),
-      title: jobForm.title,
-      company: jobForm.company,
-      location: jobForm.location,
-      salary: jobForm.salary,
-      requirements: jobForm.requirements.split(',').map(req => req.trim()).filter(req => req),
-      description: jobForm.description,
-      type: jobForm.type,
-      posted: 'Just now',
-      status: 'active'
-    };
-
-    setPostedJobs(prev => [newJob, ...prev]);
+    // Reload jobs from database
+    loadEmployerJobs();
     setJobForm({
       title: '',
       company: '',
@@ -532,6 +561,12 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
                   >
                     <ArrowLeft className="w-5 h-5" />
                     <span>Back to Home</span>
+                  </button>
+                  <button
+                    onClick={onSignOut}
+                    className="w-full flex items-center space-x-2 px-4 py-3 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+                  >
+                    <span>Sign Out</span>
                   </button>
                   <button
                     onClick={() => {

@@ -25,7 +25,9 @@ import {
 
 interface JobSeekerDashboardProps {
   onBack: () => void;
+  onSignOut: () => void;
   jobs: Job[];
+  user: any;
 }
 
 interface Job {
@@ -63,7 +65,7 @@ interface ResumeData {
   skills: string[];
 }
 
-const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs }) => {
+const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, onSignOut, jobs, user }) => {
   const [activeTab, setActiveTab] = useState('jobs');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
@@ -72,20 +74,92 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
   const [showChatbot, setShowChatbot] = useState(false);
   const [savedResume, setSavedResume] = useState<ResumeData | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [userProfile, setUserProfile] = useState<any>(null);
 
-  const handleSaveResume = (resumeData: ResumeData) => {
+  useEffect(() => {
+    if (user) {
+      loadUserProfile();
+      loadUserResume();
+    }
+  }, [user]);
+
+  const loadUserProfile = async () => {
+    try {
+      const { data: profile, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', user.id)
+        .single();
+
+      if (error && error.code !== 'PGRST116') {
+        throw error;
+      }
+
+      if (profile) {
+        setUserProfile(profile);
+      }
+    } catch (error) {
+      console.error('Error loading profile:', error);
+    }
+  };
+
+  const loadUserResume = async () => {
+    try {
+      const { data: resume, error } = await supabase
+        .from('resumes')
+        .select('*')
+        .eq('user_id', user.id)
+        .single();
+
+      if (error && error.code !== 'PGRST116') {
+        throw error;
+      }
+
+      if (resume) {
+        setSavedResume({
+          personalInfo: resume.personal_info,
+          experience: resume.experience,
+          education: resume.education,
+          skills: resume.skills
+        });
+      }
+    } catch (error) {
+      console.error('Error loading resume:', error);
+    }
+  };
+
+  const handleSaveResume = async (resumeData: ResumeData) => {
+    try {
+      const { error } = await supabase
+        .from('resumes')
+        .upsert({
+          user_id: user.id,
+          personal_info: resumeData.personalInfo,
+          experience: resumeData.experience,
+          education: resumeData.education,
+          skills: resumeData.skills,
+          updated_at: new Date().toISOString()
+        });
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error saving resume:', error);
+      alert('Failed to save resume. Please try again.');
+    }
+    
     setSavedResume(resumeData);
     setShowAIBuilder(false);
   };
 
   // Mock user profile data
-  const userProfile = {
-    name: 'John Doe',
-    email: 'john@example.com',
-    phone: '+1 (555) 123-4567',
-    location: 'San Francisco, CA',
-    bio: 'Passionate frontend developer with 5+ years of experience building responsive web applications...'
+  const profileForChat = {
+    name: userProfile?.name || 'User',
+    email: userProfile?.email || '',
+    phone: userProfile?.phone || '',
+    location: userProfile?.location || '',
+    bio: userProfile?.bio || ''
   };
+
   const renderSidebar = () => (
     <>
       {/* Mobile Menu Overlay */}
@@ -117,7 +191,15 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
             <X className="w-5 h-5" />
           </button>
         </div>
-        <h2 className="text-xl font-bold text-gray-800">Job Seeker</h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-bold text-gray-800">Job Seeker</h2>
+          <button
+            onClick={onSignOut}
+            className="text-sm text-red-600 hover:text-red-700 transition-colors"
+          >
+            Sign Out
+          </button>
+        </div>
       </div>
       
       <nav className="p-4">
@@ -639,7 +721,7 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
         <div className="flex-1">
           <AIChatbot 
             onBack={() => setShowChatbot(false)}
-            userProfile={userProfile}
+            userProfile={profileForChat}
             resumeData={savedResume}
           />
         </div>
@@ -656,7 +738,7 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
             <div className="flex-1">
               <AIChatbot 
                 onBack={() => setActiveTab('jobs')}
-                userProfile={userProfile}
+               userProfile={profileForChat}
                 resumeData={savedResume}
               />
             </div>
