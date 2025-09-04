@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import { Loader2 } from 'lucide-react';
 import { supabase } from './lib/supabase';
 import AuthPage from './components/AuthPage';
 import OnboardingFlow from './components/OnboardingFlow';
