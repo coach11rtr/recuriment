@@ -4,11 +4,9 @@ import { Users, Briefcase, Star, TrendingUp, ArrowRight, CheckCircle } from 'luc
 interface LandingPageProps {
   onGetJob: () => void;
   onPostJob: () => void;
-  user?: any;
-  onSignOut?: () => void;
 }
 
-const LandingPage: React.FC<LandingPageProps> = ({ onGetJob, onPostJob, user, onSignOut }) => {
+const LandingPage: React.FC<LandingPageProps> = ({ onGetJob, onPostJob }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Header */}
@@ -26,14 +24,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetJob, onPostJob, user, on
             <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
             <a href="#about" className="text-gray-600 hover:text-blue-600 transition-colors">About</a>
             <a href="#contact" className="text-gray-600 hover:text-blue-600 transition-colors">Contact</a>
-            {user && onSignOut && (
-              <button
-                onClick={onSignOut}
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-              >
-                Sign Out
-              </button>
-            )}
           </nav>
         </div>
       </header>
