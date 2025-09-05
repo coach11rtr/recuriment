@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import OnboardingOverlay from './OnboardingOverlay';
 import AIResumeBuilder from './AIResumeBuilder';
 import ResumeRating from './ResumeRating';
 import AIChatbot from './AIChatbot';
@@ -72,6 +73,50 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
   const [showChatbot, setShowChatbot] = useState(false);
   const [savedResume, setSavedResume] = useState<ResumeData | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(() => {
+    return !localStorage.getItem('jobseeker-onboarding-completed');
+  });
+
+  const onboardingSteps = [
+    {
+      id: 'browse-jobs',
+      target: '[data-onboarding="browse-jobs"]',
+      title: 'Browse Jobs',
+      description: 'Search and filter through thousands of job opportunities that match your skills.',
+      position: 'right' as const
+    },
+    {
+      id: 'ai-resume',
+      target: '[data-onboarding="ai-resume"]',
+      title: 'AI Resume Builder',
+      description: 'Create a professional resume instantly using our AI-powered resume builder.',
+      position: 'right' as const
+    },
+    {
+      id: 'resume-rating',
+      target: '[data-onboarding="resume-rating"]',
+      title: 'Resume Rating',
+      description: 'Get personalized feedback on how well your resume matches specific job requirements.',
+      position: 'left' as const
+    },
+    {
+      id: 'ai-assistant',
+      target: '[data-onboarding="ai-assistant"]',
+      title: 'AI Career Assistant',
+      description: 'Get personalized career advice, job search tips, and skill development recommendations.',
+      position: 'right' as const
+    }
+  ];
+
+  const handleOnboardingComplete = () => {
+    localStorage.setItem('jobseeker-onboarding-completed', 'true');
+    setShowOnboarding(false);
+  };
+
+  const handleOnboardingSkip = () => {
+    localStorage.setItem('jobseeker-onboarding-completed', 'true');
+    setShowOnboarding(false);
+  };
 
   const handleSaveResume = (resumeData: ResumeData) => {
     setSavedResume(resumeData);
@@ -123,6 +168,7 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
       <nav className="p-4">
         <div className="space-y-2">
           <button
+            data-onboarding="browse-jobs"
             onClick={() => setActiveTab('jobs')}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
               activeTab === 'jobs' ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:bg-gray-100'
@@ -148,6 +194,7 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
             <span>Profile</span>
           </button>
           <button
+            data-onboarding="ai-resume"
             onClick={() => {
               setActiveTab('resume');
               setIsMobileMenuOpen(false);
@@ -172,6 +219,7 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
             <span>Applications</span>
           </button>
           <button
+            data-onboarding="ai-assistant"
             onClick={() => {
               setActiveTab('chatbot');
               setIsMobileMenuOpen(false);
@@ -206,6 +254,7 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-800">Find Your Next Opportunity</h1>
           <button
+            data-onboarding="resume-rating"
             onClick={() => setShowResumeRating(true)}
             className="px-3 py-2 lg:px-6 lg:py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm lg:text-base"
           >
@@ -631,6 +680,14 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
 
   return (
     <div className="min-h-screen bg-gray-50 flex relative">
+      {showOnboarding && (
+        <OnboardingOverlay
+          steps={onboardingSteps}
+          onComplete={handleOnboardingComplete}
+          onSkip={handleOnboardingSkip}
+        />
+      )}
+      
       {showResumeRating ? (
         <div className="flex-1">
           <ResumeRating onBack={() => setShowResumeRating(false)} />

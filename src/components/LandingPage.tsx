@@ -1,4 +1,5 @@
 import React from 'react';
+import OnboardingOverlay from './OnboardingOverlay';
 import { Users, Briefcase, Star, TrendingUp, ArrowRight, CheckCircle } from 'lucide-react';
 
 interface LandingPageProps {
@@ -7,8 +8,61 @@ interface LandingPageProps {
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({ onGetJob, onPostJob }) => {
+  const [showOnboarding, setShowOnboarding] = React.useState(() => {
+    return !localStorage.getItem('onboarding-completed');
+  });
+
+  const onboardingSteps = [
+    {
+      id: 'find-job',
+      target: '[data-onboarding="find-job"]',
+      title: 'Find Your Dream Job',
+      description: 'Discover thousands of job opportunities tailored to your skills and experience.',
+      position: 'bottom' as const
+    },
+    {
+      id: 'post-job',
+      target: '[data-onboarding="post-job"]',
+      title: 'Hire Top Talent',
+      description: 'Post job openings and connect with qualified candidates from around the world.',
+      position: 'bottom' as const
+    },
+    {
+      id: 'smart-matching',
+      target: '[data-onboarding="smart-matching"]',
+      title: 'AI-Powered Matching',
+      description: 'Our smart algorithms ensure perfect job-candidate matches based on skills and culture fit.',
+      position: 'top' as const
+    },
+    {
+      id: 'career-growth',
+      target: '[data-onboarding="career-growth"]',
+      title: 'Career Development',
+      description: 'Access tools for skill development, portfolio building, and career advancement tracking.',
+      position: 'top' as const
+    }
+  ];
+
+  const handleOnboardingComplete = () => {
+    localStorage.setItem('onboarding-completed', 'true');
+    setShowOnboarding(false);
+  };
+
+  const handleOnboardingSkip = () => {
+    localStorage.setItem('onboarding-completed', 'true');
+    setShowOnboarding(false);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      {showOnboarding && (
+        <OnboardingOverlay
+          steps={onboardingSteps}
+          onComplete={handleOnboardingComplete}
+          onSkip={handleOnboardingSkip}
+        />
+      )}
+      
       {/* Header */}
       <header className="container mx-auto px-4 lg:px-6 py-6">
         <div className="flex items-center justify-between">
@@ -45,6 +99,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetJob, onPostJob }) => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 lg:gap-6 justify-center mb-12 lg:mb-16 px-4">
             <button 
+              data-onboarding="find-job"
               onClick={onGetJob}
               className="group px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold text-base lg:text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2"
             >
@@ -53,6 +108,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetJob, onPostJob }) => {
               <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform" />
             </button>
             <button 
+              data-onboarding="post-job"
               onClick={onPostJob}
               className="group px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-xl font-semibold text-base lg:text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2"
             >
@@ -95,7 +151,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetJob, onPostJob }) => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8 px-4">
-            <div className="text-center p-6 lg:p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 hover:shadow-lg transition-shadow">
+            <div data-onboarding="smart-matching" className="text-center p-6 lg:p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 hover:shadow-lg transition-shadow">
               <div className="w-12 h-12 lg:w-16 lg:h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 lg:mb-6">
                 <Star className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
               </div>
@@ -105,7 +161,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetJob, onPostJob }) => {
               </p>
             </div>
             
-            <div className="text-center p-6 lg:p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100 hover:shadow-lg transition-shadow">
+            <div data-onboarding="career-growth" className="text-center p-6 lg:p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100 hover:shadow-lg transition-shadow">
               <div className="w-12 h-12 lg:w-16 lg:h-16 bg-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 lg:mb-6">
                 <TrendingUp className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
               </div>
