@@ -27,20 +27,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetJob, onPostJob }) => {
       description: 'Post job openings and connect with qualified candidates from around the world.',
       position: 'bottom' as const
     },
-    {
-      id: 'smart-matching',
-      target: '[data-onboarding="smart-matching"]',
-      title: 'AI-Powered Matching',
-      description: 'Our smart algorithms ensure perfect job-candidate matches based on skills and culture fit.',
-      position: 'top' as const
-    },
-    {
-      id: 'career-growth',
-      target: '[data-onboarding="career-growth"]',
-      title: 'Career Development',
-      description: 'Access tools for skill development, portfolio building, and career advancement tracking.',
-      position: 'top' as const
-    }
   ];
 
   const handleOnboardingComplete = () => {

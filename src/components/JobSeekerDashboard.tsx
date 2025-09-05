@@ -79,6 +79,13 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
 
   const onboardingSteps = [
     {
+      id: 'sidebar-navigation',
+      target: '[data-onboarding="sidebar-navigation"]',
+      title: 'Navigation Menu',
+      description: 'Use this sidebar to navigate between different sections of your dashboard.',
+      position: 'right' as const
+    },
+    {
       id: 'browse-jobs',
       target: '[data-onboarding="browse-jobs"]',
       title: 'Browse Jobs',
@@ -97,7 +104,7 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
       target: '[data-onboarding="resume-rating"]',
       title: 'Resume Rating',
       description: 'Get personalized feedback on how well your resume matches specific job requirements.',
-      position: 'left' as const
+      position: 'bottom' as const
     },
     {
       id: 'ai-assistant',
@@ -146,6 +153,10 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
         fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:transform-none
         ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
+      <div 
+        data-onboarding="sidebar-navigation"
+        className="h-full"
+      >
       <div className="p-6 border-b">
         <div className="flex items-center justify-between mb-4">
         <button 
@@ -233,6 +244,7 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
           </button>
         </div>
       </nav>
+      </div>
       </div>
     </>
   );

@@ -99,11 +99,14 @@ const OnboardingOverlay: React.FC<OnboardingOverlayProps> = ({ steps, onComplete
   return (
     <>
       {/* Overlay backdrop */}
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-40" />
+      <div 
+        className="fixed inset-0 bg-black bg-opacity-50 z-40"
+        style={{ pointerEvents: 'none' }}
+      />
       
       {/* Tooltip */}
       <div
-        className="fixed z-50 bg-white rounded-lg shadow-xl border border-gray-200 p-4 max-w-xs sm:max-w-sm"
+        className="fixed z-50 bg-white rounded-lg shadow-xl border border-gray-200 p-4 max-w-xs sm:max-w-sm pointer-events-auto"
         style={{
           top: tooltipPosition.top,
           left: Math.max(10, Math.min(tooltipPosition.left - 150, window.innerWidth - 320)),
@@ -185,10 +188,11 @@ const OnboardingOverlay: React.FC<OnboardingOverlayProps> = ({ steps, onComplete
       <style jsx global>{`
         .onboarding-highlight {
           position: relative;
-          z-index: 45;
+          z-index: 45 !important;
           box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5), 0 0 0 8px rgba(59, 130, 246, 0.2);
           border-radius: 8px;
           transition: all 0.3s ease;
+          pointer-events: auto !important;
         }
       `}</style>
     </>
