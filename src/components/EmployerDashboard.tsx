@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import OnboardingOverlay from './OnboardingOverlay';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import SalaryBenchmark from './SalaryBenchmark';
 import { 
   ArrowLeft, 
   Building2, 
@@ -57,6 +58,7 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
   const [showOnboarding, setShowOnboarding] = useState(() => {
     return !localStorage.getItem('employer-onboarding-completed');
   });
+  const [salaryRating, setSalaryRating] = useState<any>(null);
 
   const onboardingSteps = [
     {
@@ -357,6 +359,20 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
               Tip: Use the AI Generate button to create a professional job description based on your inputs
             </p>
           </div>
+
+          {/* Salary Benchmark */}
+          {jobForm.salary && jobForm.title && (
+            <div>
+              <SalaryBenchmark
+                jobTitle={jobForm.title}
+                location={jobForm.location}
+                salary={jobForm.salary}
+                jobType={jobForm.type}
+                requirements={jobForm.requirements}
+                onRatingReceived={setSalaryRating}
+              />
+            </div>
+          )}
 
           {/* Action Buttons */}
           <div className="flex justify-between items-center pt-6 border-t border-gray-200">
