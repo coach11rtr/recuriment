@@ -118,7 +118,7 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
     }
   ]);
 
-  const genAI = new GoogleGenerativeAI('AIzaSyB7Hbl5seOhDqFSgPZCvV4ymlFTdKM_5gw');
+  const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
   const handleInputChange = (field: string, value: string) => {
     setJobForm(prev => ({ ...prev, [field]: value }));
@@ -161,8 +161,12 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
     } catch (error) {
       console.error('Error generating job description:', error);
       const errorMessage = error instanceof Error ? error.message : String(error);
-      if (errorMessage.includes('503') && errorMessage.includes('overloaded')) {
+      if (errorMessage.includes('429') || errorMessage.includes('Quota exceeded')) {
+        alert('The AI service is currently experiencing high demand. Please try again in a few minutes.');
+      } else if (errorMessage.includes('503') && errorMessage.includes('overloaded')) {
         alert('The AI service is currently busy. Please try again in a few moments.');
+      } else if (errorMessage.includes('403') || errorMessage.includes('API key')) {
+        alert('There is an issue with the AI service configuration. Please contact support.');
       } else {
         alert('Failed to generate job description. Please try again or write it manually.');
       }
