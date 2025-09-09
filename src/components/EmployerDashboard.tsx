@@ -153,19 +153,44 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
       `;
 
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-      const result = await model.generateContent(prompt);
+      
+      // Add timeout and better error handling
+      const result = await Promise.race([
+        model.generateContent(prompt),
+        new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Request timeout')), 30000)
+        )
+      ]);
+      
       const response = await result.response;
-      const generatedDescription = response.text();
+      let generatedDescription = response.text();
+      
+      // Clean up the response text
+      generatedDescription = generatedDescription.replace(/^\*\*.*?\*\*\s*/gm, '');
+      generatedDescription = generatedDescription.replace(/^#+\s*/gm, '');
+      generatedDescription = generatedDescription.trim();
 
       setJobForm(prev => ({ ...prev, description: generatedDescription }));
     } catch (error) {
       console.error('Error generating job description:', error);
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      if (errorMessage.includes('503') && errorMessage.includes('overloaded')) {
-        alert('The AI service is currently busy. Please try again in a few moments.');
+      
+      let errorMessage = 'Failed to generate job description. Please try again.';
+      
+      if (error instanceof Error) {
+        if (error.message.includes('timeout')) {
+          errorMessage = 'Request timed out. Please try again with a shorter prompt.';
+        } else if (error.message.includes('503') || error.message.includes('overloaded')) {
+          errorMessage = 'The AI service is currently busy. Please try again in a few moments.';
+        } else if (error.message.includes('quota') || error.message.includes('limit')) {
+          errorMessage = 'API quota exceeded. Please check your API key limits.';
+        } else if (error.message.includes('invalid') || error.message.includes('key')) {
+          errorMessage = 'Invalid API key. Please check your configuration.';
+        }
       } else {
-        alert('Failed to generate job description. Please try again or write it manually.');
+        errorMessage = 'An unexpected error occurred. Please try again.';
       }
+      
+      alert(errorMessage);
     } finally {
       setIsGenerating(false);
     }
