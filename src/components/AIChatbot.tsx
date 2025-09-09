@@ -157,15 +157,15 @@ const AIChatbot: React.FC<AIChatbotProps> = ({ onBack, userProfile, resumeData }
     } catch (error) {
       console.error('Error sending message:', error);
       const errorMessage = error instanceof Error ? error.message : String(error);
-      const errorMessage: Message = {
+      const botErrorMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: 'bot',
-        content: errorMessage.includes('429') || errorMessage.includes('Quota exceeded') 
+        content: errorMessage.includes('429') || errorMessage.includes('Quota exceeded')
           ? "I'm currently experiencing high demand. Please try again in a few minutes."
           : "I apologize, but I'm having trouble processing your request right now. Please try again in a moment.",
         timestamp: new Date()
       };
-      setMessages(prev => [...prev, errorMessage]);
+      setMessages(prev => [...prev, botErrorMessage]);
     } finally {
       setIsLoading(false);
     }
