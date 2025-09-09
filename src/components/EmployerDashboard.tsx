@@ -680,7 +680,7 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 lg:px-6 py-6 lg:py-8">
+      <main className="h-screen flex bg-gray-50">
         {activeTab === 'post-job' && renderPostJob()}
         {activeTab === 'manage-jobs' && renderManageJobs()}
       </main>
