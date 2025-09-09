@@ -56,7 +56,7 @@ const AIChatbot: React.FC<AIChatbotProps> = ({ onBack, userProfile, resumeData }
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+  const genAI = new GoogleGenerativeAI('AIzaSyAj36MF3L_5a0ZysJ-GBKamrOux9m2SHnQ');
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -156,16 +156,13 @@ const AIChatbot: React.FC<AIChatbotProps> = ({ onBack, userProfile, resumeData }
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
       console.error('Error sending message:', error);
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      const botErrorMessage: Message = {
+      const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: 'bot',
-        content: errorMessage.includes('429') || errorMessage.includes('Quota exceeded')
-          ? "I'm currently experiencing high demand. Please try again in a few minutes."
-          : "I apologize, but I'm having trouble processing your request right now. Please try again in a moment.",
+        content: "I apologize, but I'm having trouble processing your request right now. Please try again in a moment.",
         timestamp: new Date()
       };
-      setMessages(prev => [...prev, botErrorMessage]);
+      setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }

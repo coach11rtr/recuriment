@@ -30,7 +30,7 @@ const SalaryBenchmark: React.FC<SalaryBenchmarkProps> = ({
   const [rating, setRating] = useState<SalaryRating | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+  const genAI = new GoogleGenerativeAI('AIzaSyB1FoVA-2py0eS03IuqGLk5MeMi3p1jn7M');
 
   const analyzeSalary = async () => {
     if (!salary || !jobTitle) {
@@ -87,12 +87,8 @@ const SalaryBenchmark: React.FC<SalaryBenchmarkProps> = ({
     } catch (error) {
       console.error('Error analyzing salary:', error);
       const errorMessage = error instanceof Error ? error.message : String(error);
-      if (errorMessage.includes('429') || errorMessage.includes('Quota exceeded')) {
-        setError('The AI service is currently experiencing high demand. Please try again in a few minutes.');
-      } else if (errorMessage.includes('503') && errorMessage.includes('overloaded')) {
+      if (errorMessage.includes('503') && errorMessage.includes('overloaded')) {
         setError('The AI service is currently busy. Please try again in a few moments.');
-      } else if (errorMessage.includes('403') || errorMessage.includes('API key')) {
-        setError('There is an issue with the AI service configuration. Please contact support.');
       } else {
         setError('Failed to analyze salary. Please try again.');
       }

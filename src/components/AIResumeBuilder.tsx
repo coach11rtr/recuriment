@@ -45,7 +45,7 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
   });
   const [generatedResume, setGeneratedResume] = useState<ResumeData | null>(null);
 
-  const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+  const genAI = new GoogleGenerativeAI('AIzaSyAMqMgvCu-bM7rvZUDjbjDXCYoXT6iAL34');
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -120,14 +120,7 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
       
     } catch (error) {
       console.error('Error generating resume:', error);
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      if (errorMessage.includes('429') || errorMessage.includes('Quota exceeded')) {
-        alert('The AI service is currently busy due to high demand. Please try again in a few minutes.');
-      } else if (errorMessage.includes('403') || errorMessage.includes('API key')) {
-        alert('There is an issue with the AI service configuration. Please contact support.');
-      } else {
-        alert('Failed to generate resume. Please try again.');
-      }
+      alert('Failed to generate resume. Please try again.');
     } finally {
       setIsGenerating(false);
     }
