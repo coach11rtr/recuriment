@@ -25,7 +25,7 @@ const ResumeRating: React.FC<ResumeRatingProps> = ({ onBack }) => {
   });
   const [ratingResult, setRatingResult] = useState<RatingResult | null>(null);
 
-  const genAI = new GoogleGenerativeAI('AIzaSyAj36MF3L_5a0ZysJ-GBKamrOux9m2SHnQ');
+  const genAI = new GoogleGenerativeAI('AIzaSyDcESYR34GEMPJlOT_3ByoFHvY7VPPqly0');
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));

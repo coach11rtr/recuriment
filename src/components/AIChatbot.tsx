@@ -56,7 +56,7 @@ const AIChatbot: React.FC<AIChatbotProps> = ({ onBack, userProfile, resumeData }
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const genAI = new GoogleGenerativeAI('AIzaSyAj36MF3L_5a0ZysJ-GBKamrOux9m2SHnQ');
+  const genAI = new GoogleGenerativeAI('AIzaSyDcESYR34GEMPJlOT_3ByoFHvY7VPPqly0');
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });

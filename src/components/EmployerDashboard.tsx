@@ -118,7 +118,7 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
     }
   ]);
 
-  const genAI = new GoogleGenerativeAI('AIzaSyB7Hbl5seOhDqFSgPZCvV4ymlFTdKM_5gw');
+  const genAI = new GoogleGenerativeAI('AIzaSyDcESYR34GEMPJlOT_3ByoFHvY7VPPqly0');
 
   const handleInputChange = (field: string, value: string) => {
     setJobForm(prev => ({ ...prev, [field]: value }));
