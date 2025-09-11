@@ -30,6 +30,7 @@ function App() {
       description: 'We are looking for a talented Senior Frontend Developer to join our dynamic team. You will be responsible for building and maintaining high-quality web applications using modern technologies.',
       requirements: ['React', 'TypeScript', 'Node.js', '5+ years experience'],
       tags: ['Remote', 'Tech', 'Senior Level']
+    },
     {
       id: '2',
       title: 'UX/UI Designer',
@@ -53,6 +54,8 @@ function App() {
       description: 'Analyze complex datasets to derive actionable insights. Work with machine learning models and statistical analysis.',
       requirements: ['Python', 'SQL', 'Machine Learning', 'Statistics'],
       tags: ['Data', 'Analytics', 'Remote']
+    }
+  ]);
 
   const addJob = (newJob: Omit<Job, 'id' | 'posted'>) => {
     const job: Job = {
