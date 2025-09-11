@@ -85,8 +85,7 @@ function App() {
     const job: Job = {
       ...newJob,
       id: Date.now().toString(),
-      ].filter(tag => tag),
-      salaryRating: jobForJobSeekers.salaryRating
+      posted: 'Just now'
     };
     setJobs(prev => [job, ...prev]);
   };
