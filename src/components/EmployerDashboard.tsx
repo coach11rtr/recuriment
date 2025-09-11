@@ -53,6 +53,14 @@ interface Job {
 }
 
 const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob }) => {
+  const categories = [
+    'Actuarial & Underwriting',
+    'Data Science & Data Engineering', 
+    'Product Management',
+    'Catastrophe Modeling',
+    'Machine Learning & Predictive Modeling'
+  ];
+
   const [activeTab, setActiveTab] = useState('post-job');
   const [isGenerating, setIsGenerating] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -101,7 +109,8 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
     salary: '',
     requirements: '',
     description: '',
-    type: 'Full-time'
+    type: 'Full-time',
+    category: 'Actuarial & Underwriting'
   });
   const [postedJobs, setPostedJobs] = useState<JobPosting[]>([
     {
@@ -242,7 +251,8 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
       salary: '',
       requirements: '',
       description: '',
-      type: 'Full-time'
+      type: 'Full-time',
+      category: 'Actuarial & Underwriting'
     });
     alert('Job posted successfully!');
     setActiveTab('manage-jobs');
