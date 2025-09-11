@@ -30,7 +30,7 @@ const SalaryBenchmark: React.FC<SalaryBenchmarkProps> = ({
   const [rating, setRating] = useState<SalaryRating | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const genAI = new GoogleGenerativeAI('AIzaSyDcESYR34GEMPJlOT_3ByoFHvY7VPPqly0');
+  const genAI = new GoogleGenerativeAI('AIzaSyBkhJ-6KZBBMUl2pgvYVP9QwSmB7N99Oic');
 
   const analyzeSalary = async () => {
     if (!salary || !jobTitle) {

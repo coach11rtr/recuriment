@@ -14,6 +14,12 @@ interface Job {
   description: string;
   requirements: string[];
   tags: string[];
+  salaryRating?: {
+    score: number;
+    feedback: string;
+    marketRange: string;
+    recommendation: string;
+  };
 }
 
 function App() {
@@ -29,7 +35,13 @@ function App() {
       posted: '2 days ago',
       description: 'We are looking for a talented Senior Frontend Developer to join our dynamic team. You will be responsible for building and maintaining high-quality web applications using modern technologies.',
       requirements: ['React', 'TypeScript', 'Node.js', '5+ years experience'],
-      tags: ['Remote', 'Tech', 'Senior Level']
+      tags: ['Remote', 'Tech', 'Senior Level'],
+      salaryRating: {
+        score: 8,
+        feedback: 'Competitive salary for senior-level position in San Francisco market',
+        marketRange: '$110k - $170k',
+        recommendation: 'Salary is well-positioned to attract top talent'
+      }
     },
     {
       id: '2',
@@ -41,7 +53,13 @@ function App() {
       posted: '1 week ago',
       description: 'Join our creative team as a UX/UI Designer. Create intuitive and visually appealing user interfaces for web and mobile applications.',
       requirements: ['Figma', 'Adobe Creative Suite', 'User Research', '3+ years experience'],
-      tags: ['Design', 'Creative', 'Hybrid']
+      tags: ['Design', 'Creative', 'Hybrid'],
+      salaryRating: {
+        score: 7,
+        feedback: 'Good salary range for mid-level UX/UI position in New York',
+        marketRange: '$75k - $120k',
+        recommendation: 'Consider highlighting additional benefits to enhance competitiveness'
+      }
     },
     {
       id: '3',
@@ -53,7 +71,13 @@ function App() {
       posted: '3 days ago',
       description: 'Analyze complex datasets to derive actionable insights. Work with machine learning models and statistical analysis.',
       requirements: ['Python', 'SQL', 'Machine Learning', 'Statistics'],
-      tags: ['Data', 'Analytics', 'Remote']
+      tags: ['Data', 'Analytics', 'Remote'],
+      salaryRating: {
+        score: 6,
+        feedback: 'Average salary for data science role, competitive for contract position',
+        marketRange: '$85k - $140k',
+        recommendation: 'Consider increasing upper range to attract more experienced candidates'
+      }
     }
   ]);
 
@@ -61,7 +85,8 @@ function App() {
     const job: Job = {
       ...newJob,
       id: Date.now().toString(),
-      posted: 'Just now'
+      ].filter(tag => tag),
+      salaryRating: jobForJobSeekers.salaryRating
     };
     setJobs(prev => [job, ...prev]);
   };

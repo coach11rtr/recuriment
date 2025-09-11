@@ -37,6 +37,12 @@ interface JobPosting {
   type: string;
   posted: string;
   status: 'active' | 'draft' | 'closed';
+  salaryRating?: {
+    score: number;
+    feedback: string;
+    marketRange: string;
+    recommendation: string;
+  };
 }
 
 interface Job {
@@ -111,7 +117,7 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
     }
   ]);
 
-  const genAI = new GoogleGenerativeAI('AIzaSyDcESYR34GEMPJlOT_3ByoFHvY7VPPqly0');
+  const genAI = new GoogleGenerativeAI('AIzaSyBkhJ-6KZBBMUl2pgvYVP9QwSmB7N99Oic');
 
   const handleInputChange = (field: string, value: string) => {
     setJobForm(prev => ({ ...prev, [field]: value }));
@@ -224,7 +230,8 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
       description: jobForm.description,
       type: jobForm.type,
       posted: 'Just now',
-      status: 'active'
+      status: 'active',
+      salaryRating: salaryRating
     };
 
     setPostedJobs(prev => [newJob, ...prev]);
@@ -379,7 +386,7 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
           </div>
 
           {/* Salary Benchmark */}
-          {jobForm.salary && jobForm.title && (
+          {jobForm.salary && jobForm.title && jobForm.location && (
             <div>
               <SalaryBenchmark
                 jobTitle={jobForm.title}
@@ -448,26 +455,6 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
       <div className="grid gap-6">
         {postedJobs.map((job) => (
           <div key={job.id} className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 lg:p-6">
-            {/* Salary Rating Display */}
-            {salaryRating && (
-              <div className="mb-4 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <TrendingUp className="w-4 h-4 text-blue-600" />
-                    <span className="text-sm font-medium text-blue-700">Salary Rating</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg font-bold text-blue-600">{salaryRating.score}/10</span>
-                    <span className="text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded-full">
-                      {salaryRating.score >= 8 ? 'Excellent' : 
-                       salaryRating.score >= 6 ? 'Competitive' : 
-                       salaryRating.score >= 4 ? 'Average' : 'Below Market'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            )}
-            
             <div className="flex justify-between items-start mb-4">
               <div>
                 <h3 className="text-xl lg:text-2xl font-bold text-gray-800 mb-2 pr-2">{job.title}</h3>
@@ -484,6 +471,17 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
                     <DollarSign className="w-4 h-4" />
                     <span>{job.salary}</span>
                   </div>
+                  {job.salaryRating && (
+                    <div className="flex items-center space-x-1">
+                      <TrendingUp className="w-4 h-4 text-blue-600" />
+                      <span className="text-blue-600 font-medium">{job.salaryRating.score}/10</span>
+                      <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                        {job.salaryRating.score >= 8 ? 'Excellent' : 
+                         job.salaryRating.score >= 6 ? 'Competitive' : 
+                         job.salaryRating.score >= 4 ? 'Average' : 'Below Market'}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="flex flex-wrap items-center gap-2 lg:gap-4">
                   <span className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -505,6 +503,30 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
                 </button>
               </div>
             </div>
+
+            {/* Salary Rating Details */}
+            {job.salaryRating && (
+              <div className="mb-4 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <TrendingUp className="w-4 h-4 text-blue-600" />
+                      <span className="text-sm font-medium text-blue-700">Salary Analysis</span>
+                    </div>
+                    <p className="text-xs text-gray-600 mb-1">{job.salaryRating.feedback}</p>
+                    <p className="text-xs text-gray-500">Market Range: {job.salaryRating.marketRange}</p>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-blue-600">{job.salaryRating.score}/10</div>
+                    <div className="text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded-full">
+                      {job.salaryRating.score >= 8 ? 'Excellent' : 
+                       job.salaryRating.score >= 6 ? 'Competitive' : 
+                       job.salaryRating.score >= 4 ? 'Average' : 'Below Market'}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className="mb-4">
               <p className="text-sm lg:text-base text-gray-700 line-clamp-3">{job.description}</p>
