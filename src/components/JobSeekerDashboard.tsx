@@ -40,6 +40,12 @@ interface Job {
   description: string;
   requirements: string[];
   tags: string[];
+  salaryRating?: {
+    score: number;
+    feedback: string;
+    marketRange: string;
+    recommendation: string;
+  };
 }
 
 interface ResumeData {
@@ -336,6 +342,12 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
                   <DollarSign className="w-4 h-4" />
                   <span>{job.salary}</span>
                 </div>
+                {job.salaryRating && (
+                  <div className="flex items-center space-x-1">
+                    <TrendingUp className="w-4 h-4 text-blue-600" />
+                    <span className="text-blue-600 font-medium text-sm">{job.salaryRating.score}/10</span>
+                  </div>
+                )}
               </div>
               
               <div className="flex flex-wrap gap-2 mb-3">
@@ -380,8 +392,29 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack, jobs })
                     <DollarSign className="w-4 h-4" />
                     <span>{selectedJob.salary}</span>
                   </div>
+                  {selectedJob.salaryRating && (
+                    <div className="flex items-center space-x-1">
+                      <TrendingUp className="w-4 h-4 text-blue-600" />
+                      <span className="text-blue-600 font-medium">{selectedJob.salaryRating.score}/10 Salary Rating</span>
+                    </div>
+                  )}
                 </div>
               </div>
+
+              {/* Salary Rating Details */}
+              {selectedJob.salaryRating && (
+                <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <TrendingUp className="w-5 h-5 text-blue-600" />
+                    <h3 className="text-base font-semibold text-blue-700">Salary Analysis</h3>
+                    <span className="text-lg font-bold text-blue-600">{selectedJob.salaryRating.score}/10</span>
+                  </div>
+                  <p className="text-sm text-gray-700 mb-2">{selectedJob.salaryRating.feedback}</p>
+                  <div className="text-sm text-gray-600">
+                    <span className="font-medium">Market Range:</span> {selectedJob.salaryRating.marketRange}
+                  </div>
+                </div>
+              )}
 
               <div className="mb-6">
                 <h3 className="text-base lg:text-lg font-semibold text-gray-800 mb-3">Job Description</h3>
