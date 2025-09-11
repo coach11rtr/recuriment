@@ -357,7 +357,7 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack, onAddJob 
                 data-onboarding="ai-generate"
                 onClick={generateJobDescription}
                 disabled={isGenerating || !jobForm.title || !jobForm.company}
-                className="px-3 py-2 lg:px-4 lg:py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-700 hover:to-pink-700 transition-all flex items-center space-x-2 text-xs lg:text-sm"
+                className="px-3 py-2 lg:px-4 lg:py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-700 hover:to-pink-700 transition-all flex items-center space-x-2 text-xs lg:text-sm relative z-10"
               >
                 {isGenerating ? (
                   <>

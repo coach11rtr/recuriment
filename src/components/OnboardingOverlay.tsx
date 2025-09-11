@@ -45,7 +45,7 @@ const OnboardingOverlay: React.FC<OnboardingOverlayProps> = ({ steps, onComplete
             break;
           case 'left':
             top = rect.top + scrollTop + rect.height / 2;
-            left = rect.left + scrollLeft - 320;
+            left = rect.left + scrollLeft - 340;
             break;
           case 'right':
             top = rect.top + scrollTop + rect.height / 2;
@@ -56,7 +56,7 @@ const OnboardingOverlay: React.FC<OnboardingOverlayProps> = ({ steps, onComplete
         setTooltipPosition({ top, left });
         
         // Scroll element into view
-        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        element.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
         
         // Add highlight class
         element.classList.add('onboarding-highlight');
@@ -109,7 +109,7 @@ const OnboardingOverlay: React.FC<OnboardingOverlayProps> = ({ steps, onComplete
         className="fixed z-[60] bg-white rounded-lg shadow-xl border border-gray-200 p-4 max-w-xs sm:max-w-sm pointer-events-auto"
         style={{
           top: tooltipPosition.top,
-          left: Math.max(10, Math.min(tooltipPosition.left - 150, window.innerWidth - 320)),
+          left: Math.max(10, Math.min(tooltipPosition.left - 170, window.innerWidth - 340)),
         }}
       >
         {/* Arrow indicator */}
@@ -188,11 +188,35 @@ const OnboardingOverlay: React.FC<OnboardingOverlayProps> = ({ steps, onComplete
       <style jsx global>{`
         .onboarding-highlight {
           position: relative;
-          z-index: 55 !important;
+          z-index: 50 !important;
           box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5), 0 0 0 8px rgba(59, 130, 246, 0.2);
           border-radius: 8px;
           transition: all 0.3s ease;
           pointer-events: auto !important;
+        }
+        
+        .onboarding-highlight::before {
+          content: '';
+          position: absolute;
+          top: -8px;
+          left: -8px;
+          right: -8px;
+          bottom: -8px;
+          background: rgba(59, 130, 246, 0.1);
+          border-radius: 12px;
+          z-index: -1;
+          animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+          0%, 100% {
+            opacity: 0.5;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.8;
+            transform: scale(1.02);
+          }
         }
       `}</style>
     </>
