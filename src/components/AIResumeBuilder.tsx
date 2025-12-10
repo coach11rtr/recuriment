@@ -45,7 +45,7 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
   });
   const [generatedResume, setGeneratedResume] = useState<ResumeData | null>(null);
 
-  const genAI = new GoogleGenerativeAI('AIzaSyBkhJ-6KZBBMUl2pgvYVP9QwSmB7N99Oic');
+  const genAI = new GoogleGenerativeAI('AIzaSyDeuDXluDkLSNaaJBzsR30uilQ4kRXVaAw');
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
