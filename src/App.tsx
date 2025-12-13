@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import LandingPage from './components/LandingPage';
 import JobSeekerDashboard from './components/JobSeekerDashboard';
 import EmployerDashboard from './components/EmployerDashboard';
+import AboutUs from './components/AboutUs';
 
 interface Job {
   id: string;
@@ -23,7 +24,7 @@ interface Job {
 }
 
 function App() {
-  const [currentView, setCurrentView] = useState<'landing' | 'job-seeker' | 'employer'>('landing');
+  const [currentView, setCurrentView] = useState<'landing' | 'job-seeker' | 'employer' | 'about'>('landing');
   const [jobs, setJobs] = useState<Job[]>([
     {
       id: '1',
@@ -93,21 +94,27 @@ function App() {
   return (
     <div className="min-h-screen">
       {currentView === 'landing' && (
-        <LandingPage 
+        <LandingPage
           onGetJob={() => setCurrentView('job-seeker')}
           onPostJob={() => setCurrentView('employer')}
+          onAbout={() => setCurrentView('about')}
         />
       )}
       {currentView === 'job-seeker' && (
-        <JobSeekerDashboard 
-          onBack={() => setCurrentView('landing')} 
+        <JobSeekerDashboard
+          onBack={() => setCurrentView('landing')}
           jobs={jobs}
         />
       )}
       {currentView === 'employer' && (
-        <EmployerDashboard 
-          onBack={() => setCurrentView('landing')} 
+        <EmployerDashboard
+          onBack={() => setCurrentView('landing')}
           onAddJob={addJob}
+        />
+      )}
+      {currentView === 'about' && (
+        <AboutUs
+          onBack={() => setCurrentView('landing')}
         />
       )}
     </div>
