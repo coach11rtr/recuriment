@@ -74,13 +74,62 @@ const ContactUs: React.FC<ContactUsProps> = ({ onBack }) => {
         </div>
       </header>
 
-      {/* Hero */}
+      {/* Hero Section */}
       <section className="py-12 lg:py-20 bg-gradient-to-r from-blue-50 to-purple-50">
         <div className="container mx-auto px-4 lg:px-6 text-center">
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Contact Us</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            Contact Us
+          </h1>
           <p className="text-lg lg:text-xl text-gray-700">
-            Get in touch with our team. We're here to help.
+            Get in touch with our team. We're here to help and answer any questions you may have.
           </p>
+        </div>
+      </section>
+
+      {/* General Contact Section */}
+      <section className="py-12 lg:py-20 bg-white">
+        <div className="container mx-auto px-4 lg:px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+              General Contact Information
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              <div className="flex items-start space-x-4 p-6 bg-gray-50 rounded-lg">
+                <Mail className="w-6 h-6 text-blue-600 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Email</h3>
+                  <a
+                    href="mailto:inquire@nasearchg.com"
+                    className="text-blue-600 hover:text-blue-700"
+                  >
+                    inquire@nasearchg.com
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4 p-6 bg-gray-50 rounded-lg">
+                <Phone className="w-6 h-6 text-blue-600 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Phone</h3>
+                  <a
+                    href="tel:+18772228431"
+                    className="text-blue-600 hover:text-blue-700"
+                  >
+                    (+1) 877-222-8431
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-4 p-6 bg-blue-50 rounded-lg border border-blue-200">
+              <MapPin className="w-6 h-6 text-blue-600 mt-1" />
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-2">Head Office</h3>
+                <p className="text-gray-700">Toronto, Canada</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -109,25 +158,24 @@ const ContactUs: React.FC<ContactUsProps> = ({ onBack }) => {
                   </p>
 
                   <div className="space-y-3">
-                    {/* ✅ PHONE — only if exists */}
+                    {/* ✅ Phone only if exists */}
                     {agent.phone && (
                       <div className="flex items-start space-x-3">
                         <Phone className="w-5 h-5 text-gray-500 mt-0.5" />
                         <a
                           href={`tel:${agent.phone.split('|')[0].trim()}`}
-                          className="text-gray-700 hover:text-blue-600 transition-colors text-sm break-words"
+                          className="text-gray-700 hover:text-blue-600 text-sm break-words"
                         >
                           {agent.phone}
                         </a>
                       </div>
                     )}
 
-                    {/* EMAIL */}
                     <div className="flex items-start space-x-3">
                       <Mail className="w-5 h-5 text-gray-500 mt-0.5" />
                       <a
                         href={`mailto:${agent.email}`}
-                        className="text-blue-600 hover:text-blue-700 transition-colors text-sm break-all"
+                        className="text-blue-600 hover:text-blue-700 text-sm break-all"
                       >
                         {agent.email}
                       </a>
@@ -136,10 +184,38 @@ const ContactUs: React.FC<ContactUsProps> = ({ onBack }) => {
                 </div>
               ))}
             </div>
-
           </div>
         </div>
       </section>
+
+      {/* CTA Section */}
+      <section className="py-12 lg:py-20 bg-white">
+        <div className="container mx-auto px-4 lg:px-6">
+          <div className="max-w-3xl mx-auto text-center p-8 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
+            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
+              Ready to Get Started?
+            </h2>
+            <p className="text-lg text-gray-700 mb-6">
+              Reach out to our team today and discover how TalentConnect can help you.
+            </p>
+            <a
+              href="mailto:inquire@nasearchg.com"
+              className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold"
+            >
+              Send us an Email
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12 lg:py-16">
+        <div className="container mx-auto px-4 lg:px-6">
+          <p className="text-gray-500 text-sm text-center">
+            © 2025 TalentConnect. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
