@@ -169,7 +169,7 @@ const AboutUs: React.FC<AboutUsProps> = ({ onBack, onContact }) => {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">James </p>
-                    <p className="text-sm text-gray-600">Senior Software Engineer</p>
+                    <p className="text-sm text-gray-600">Senior Actuarial Analyst</p>
                   </div>
                 </div>
               </div>
@@ -189,7 +189,7 @@ const AboutUs: React.FC<AboutUsProps> = ({ onBack, onContact }) => {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Sarah </p>
-                    <p className="text-sm text-gray-600">HR Director, Tech Innovations Inc.</p>
+                    <p className="text-sm text-gray-600">Head of Data & Analytics, Technology Firm.</p>
                   </div>
                 </div>
               </div>
@@ -209,7 +209,7 @@ const AboutUs: React.FC<AboutUsProps> = ({ onBack, onContact }) => {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Maria</p>
-                    <p className="text-sm text-gray-600">Marketing Manager</p>
+                    <p className="text-sm text-gray-600">Actuarial Consultant</p>
                   </div>
                 </div>
               </div>
