@@ -161,14 +161,14 @@ const AboutUs: React.FC<AboutUsProps> = ({ onBack, onContact }) => {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-4 leading-relaxed">
-                  "TalentConnect found me the perfect role within two weeks. Their consultants took time to understand what I was really looking for, and the interview process was smooth. I couldn't be happier with my new position."
+                  "TalentConnect helped me secure an actuarial role within two weeks. Their consultants took the time to understand my technical background and career goals, and the interview process was well structured and smooth. I’m extremely satisfied with the role I’ve joined."
                 </p>
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
                     JM
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900">James Mitchell</p>
+                    <p className="font-semibold text-gray-900">James </p>
                     <p className="text-sm text-gray-600">Senior Software Engineer</p>
                   </div>
                 </div>
@@ -181,14 +181,14 @@ const AboutUs: React.FC<AboutUsProps> = ({ onBack, onContact }) => {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-4 leading-relaxed">
-                  "As a growing tech company, finding quality candidates at scale is challenging. TalentConnect provided us with a pre-screened pool of talent that perfectly matched our culture and technical requirements. We hired three excellent team members through them."
+                  "As a growing tech-driven company, hiring skilled data professionals at scale was a challenge. TalentConnect provided a pre-screened pool of candidates who matched both our technical requirements and team culture. We successfully hired three strong team members through their process."
                 </p>
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center text-white font-bold">
                     SP
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900">Sarah Park</p>
+                    <p className="font-semibold text-gray-900">Sarah </p>
                     <p className="text-sm text-gray-600">HR Director, Tech Innovations Inc.</p>
                   </div>
                 </div>
@@ -201,14 +201,14 @@ const AboutUs: React.FC<AboutUsProps> = ({ onBack, onContact }) => {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-4 leading-relaxed">
-                  "I was relocating internationally and worried about the job search. The TalentConnect team guided me through opportunities across multiple countries and helped me land a role that exceeded my expectations. Their professionalism is outstanding."
+                  "I was relocating internationally and concerned about finding the right role. The TalentConnect team guided me through actuarial and data opportunities across multiple countries and helped me secure a position that exceeded my expectations. Their professionalism and support throughout the process were outstanding."
                 </p>
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white font-bold">
                     MR
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900">Maria Rodriguez</p>
+                    <p className="font-semibold text-gray-900">Maria</p>
                     <p className="text-sm text-gray-600">Marketing Manager</p>
                   </div>
                 </div>
