@@ -26,29 +26,13 @@ const ContactUs: React.FC<ContactUsProps> = ({ onBack }) => {
       phone: 'Bermuda +441 705 4824 | US +1 210 764 4887',
       email: 'scott.bradley@nasearchg.com'
     },
-    {
-      name: 'Teresa Choi',
-      region: 'South East Asia and China',
-      phone: 'HK +852 8199 0127',
-      email: 'teresa.choi@nasearchg.com'
-    },
-    {
-      name: 'Eric Neu, P.ENG',
-      region: 'US, Canada',
-      phone: 'CA (+1) 905 477 2962 ext 242',
-      email: 'eric@nasearchg.com'
-    },
+  
     {
       name: 'Anthony Robert',
       region: 'US, Canada',
       email: 'anthony@nasearchg.com' // ✅ no phone
     },
-    {
-      name: 'Iqbal Shah, CEO',
-      region: 'Executive Leadership',
-      phone: 'Mobile: 416 843 7570 | Office: 905 477 2962 ext. 222',
-      email: 'iqbal@nasearchg.com'
-    }
+  
   ];
 
   return (
