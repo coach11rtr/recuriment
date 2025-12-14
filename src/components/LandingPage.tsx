@@ -217,7 +217,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetJob, onPostJob, onAbout,
             <p className="text-xl lg:text-2xl text-gray-800 leading-relaxed mb-8 italic">
               "TalentConnect understood our requirement for actuarial and data roles exceptionally well. The candidates shared had strong foundations in actuarial modeling and data analytics, which saved us significant screening time. The entire process was smooth and efficient from start to finish."
             </p>
-            <p className="text-lg font-semibold text-gray-900">Sarah Mitchell</p>
+            <p className="text-lg font-semibold text-gray-900">Sarah</p>
             <p className="text-gray-600">Hiring Director, DataWorks Inc., Austin TX</p>
           </div>
         </div>
