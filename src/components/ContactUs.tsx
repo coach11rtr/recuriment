@@ -6,7 +6,7 @@ interface ContactUsProps {
 }
 
 const ContactUs: React.FC<ContactUsProps> = ({ onBack }) => {
-  const agents = [
+ const agents = [
     {
       name: 'Denny Antony, MBA',
       region: 'Americas, Middle East, Caribbean, Europe, Japan, and Korea',
@@ -32,13 +32,17 @@ const ContactUs: React.FC<ContactUsProps> = ({ onBack }) => {
       email: 'eric@nasearchg.com'
     },
     {
+      name: 'Anthony Robert',
+      region: 'US, Canada',
+      email: 'anthony@nasearchg.com'
+    },
+    {
       name: 'Iqbal Shah, CEO',
       region: 'Executive Leadership',
       phone: 'Mobile: 416 843 7570 | Office: 905 477 2962 ext. 222',
       email: 'iqbal@nasearchg.com'
     }
   ];
-
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
