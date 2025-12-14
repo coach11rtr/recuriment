@@ -3,6 +3,7 @@ import LandingPage from './components/LandingPage';
 import JobSeekerDashboard from './components/JobSeekerDashboard';
 import EmployerDashboard from './components/EmployerDashboard';
 import AboutUs from './components/AboutUs';
+import ContactUs from './components/ContactUs';
 
 interface Job {
   id: string;
@@ -24,7 +25,7 @@ interface Job {
 }
 
 function App() {
-  const [currentView, setCurrentView] = useState<'landing' | 'job-seeker' | 'employer' | 'about'>('landing');
+  const [currentView, setCurrentView] = useState<'landing' | 'job-seeker' | 'employer' | 'about' | 'contact'>('landing');
   const [jobs, setJobs] = useState<Job[]>([
     {
       id: '1',
@@ -98,6 +99,7 @@ function App() {
           onGetJob={() => setCurrentView('job-seeker')}
           onPostJob={() => setCurrentView('employer')}
           onAbout={() => setCurrentView('about')}
+          onContact={() => setCurrentView('contact')}
         />
       )}
       {currentView === 'job-seeker' && (
@@ -114,6 +116,12 @@ function App() {
       )}
       {currentView === 'about' && (
         <AboutUs
+          onBack={() => setCurrentView('landing')}
+          onContact={() => setCurrentView('contact')}
+        />
+      )}
+      {currentView === 'contact' && (
+        <ContactUs
           onBack={() => setCurrentView('landing')}
         />
       )}

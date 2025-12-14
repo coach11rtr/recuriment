@@ -3,9 +3,10 @@ import { Users, ArrowLeft } from 'lucide-react';
 
 interface AboutUsProps {
   onBack: () => void;
+  onContact?: () => void;
 }
 
-const AboutUs: React.FC<AboutUsProps> = ({ onBack }) => {
+const AboutUs: React.FC<AboutUsProps> = ({ onBack, onContact }) => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -120,7 +121,7 @@ const AboutUs: React.FC<AboutUsProps> = ({ onBack }) => {
               <nav className="space-y-2">
                 <button onClick={onBack} className="text-gray-400 hover:text-white transition-colors text-sm lg:text-base bg-transparent border-0 cursor-pointer">Home</button>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm lg:text-base block">About Us</a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm lg:text-base block">Contact</a>
+                {onContact && <button onClick={onContact} className="text-gray-400 hover:text-white transition-colors text-sm lg:text-base block bg-transparent border-0 cursor-pointer">Contact</button>}
                 <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm lg:text-base block">Privacy</a>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm lg:text-base block">Terms</a>
               </nav>

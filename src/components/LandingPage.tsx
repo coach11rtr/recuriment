@@ -6,9 +6,10 @@ interface LandingPageProps {
   onGetJob: () => void;
   onPostJob: () => void;
   onAbout: () => void;
+  onContact: () => void;
 }
 
-const LandingPage: React.FC<LandingPageProps> = ({ onGetJob, onPostJob, onAbout }) => {
+const LandingPage: React.FC<LandingPageProps> = ({ onGetJob, onPostJob, onAbout, onContact }) => {
   const [showOnboarding, setShowOnboarding] = React.useState(() => {
     return !localStorage.getItem('onboarding-completed');
   });
@@ -64,7 +65,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetJob, onPostJob, onAbout 
           <nav className="hidden md:flex items-center space-x-8">
             <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
             <button onClick={onAbout} className="text-gray-600 hover:text-blue-600 transition-colors cursor-pointer">About</button>
-            <a href="#contact" className="text-gray-600 hover:text-blue-600 transition-colors">Contact</a>
+            <button onClick={onContact} className="text-gray-600 hover:text-blue-600 transition-colors cursor-pointer">Contact</button>
           </nav>
         </div>
       </header>
@@ -347,7 +348,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetJob, onPostJob, onAbout 
               <nav className="space-y-2">
                 <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm lg:text-base">Home</a>
                 <button onClick={onAbout} className="text-gray-400 hover:text-white transition-colors text-sm lg:text-base block bg-transparent border-0 cursor-pointer">About Us</button>
-                <a href="#contact" className="text-gray-400 hover:text-white transition-colors text-sm lg:text-base block">Contact</a>
+                <button onClick={onContact} className="text-gray-400 hover:text-white transition-colors text-sm lg:text-base block bg-transparent border-0 cursor-pointer">Contact</button>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm lg:text-base block">Privacy</a>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm lg:text-base block">Terms</a>
               </nav>
