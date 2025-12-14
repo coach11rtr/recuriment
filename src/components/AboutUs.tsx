@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, ArrowLeft } from 'lucide-react';
+import { Users, ArrowLeft, Globe, Star } from 'lucide-react';
 
 interface AboutUsProps {
   onBack: () => void;
@@ -97,6 +97,122 @@ const AboutUs: React.FC<AboutUsProps> = ({ onBack, onContact }) => {
               <p className="text-lg text-gray-700 leading-relaxed">
                 We see value in building relationships with both candidates and employers. Good hires stick around and perform well. That is why we focus on quality matches rather than just moving people through the door.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Global Coverage Section */}
+      <section className="py-12 lg:py-20 bg-white">
+        <div className="container mx-auto px-4 lg:px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 text-center">Global Coverage</h2>
+            <p className="text-center text-lg text-gray-600 mb-12">We work across North America, EMEA, APAC, and LATAM, supporting both local and cross-border hiring needs.</p>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="flex items-start space-x-4 p-6 bg-blue-50 rounded-lg border border-blue-200">
+                <Globe className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">North America</h3>
+                  <p className="text-gray-700">Comprehensive coverage across the US, Canada, and Mexico with deep local expertise and networks.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4 p-6 bg-purple-50 rounded-lg border border-purple-200">
+                <Globe className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">EMEA</h3>
+                  <p className="text-gray-700">Europe, Middle East, and Africa regional specialization supporting cross-border talent acquisition.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4 p-6 bg-green-50 rounded-lg border border-green-200">
+                <Globe className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">APAC</h3>
+                  <p className="text-gray-700">Asia-Pacific market expertise including China, Japan, and Southeast Asia talent solutions.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4 p-6 bg-orange-50 rounded-lg border border-orange-200">
+                <Globe className="w-6 h-6 text-orange-600 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">LATAM</h3>
+                  <p className="text-gray-700">Latin America and Caribbean recruitment services with local market knowledge and relationships.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-12 lg:py-20 bg-gray-50">
+        <div className="container mx-auto px-4 lg:px-6">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 text-center">What Our Clients Say</h2>
+            <p className="text-center text-lg text-gray-600 mb-12">Real feedback from job seekers and employers we've worked with</p>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <div className="flex mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-gray-700 mb-4 leading-relaxed">
+                  "TalentConnect found me the perfect role within two weeks. Their consultants took time to understand what I was really looking for, and the interview process was smooth. I couldn't be happier with my new position."
+                </p>
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                    JM
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900">James Mitchell</p>
+                    <p className="text-sm text-gray-600">Senior Software Engineer</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <div className="flex mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-gray-700 mb-4 leading-relaxed">
+                  "As a growing tech company, finding quality candidates at scale is challenging. TalentConnect provided us with a pre-screened pool of talent that perfectly matched our culture and technical requirements. We hired three excellent team members through them."
+                </p>
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center text-white font-bold">
+                    SP
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900">Sarah Park</p>
+                    <p className="text-sm text-gray-600">HR Director, Tech Innovations Inc.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <div className="flex mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-gray-700 mb-4 leading-relaxed">
+                  "I was relocating internationally and worried about the job search. The TalentConnect team guided me through opportunities across multiple countries and helped me land a role that exceeded my expectations. Their professionalism is outstanding."
+                </p>
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white font-bold">
+                    MR
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900">Maria Rodriguez</p>
+                    <p className="text-sm text-gray-600">Marketing Manager</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
